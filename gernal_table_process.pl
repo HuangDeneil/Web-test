@@ -119,6 +119,14 @@ foreach (@array)
 # 備註			19
 # discount		20
 
+
+system '
+	if [ ! -d "order_list" ] ;then
+		mkdir order_list
+	fi
+';
+
+
 foreach $_ (sort { $b <=> $a} @array2)
 {
 	$id="D$_";
