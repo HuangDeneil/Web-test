@@ -36,12 +36,12 @@ tr:nth-child(even) {
 
 
 
-<div id="wrapper" class="container2" >
+<div id="wrapper" class="container" >
 <?php 
 
     $cmd ="update.sh";
     $result=shell_exec ( $cmd );
-
+    echo "$result"
 
 
 ?>
