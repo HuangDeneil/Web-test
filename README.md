@@ -1,26 +1,21 @@
 # Web-test
 
-cloning this repo :
-$ mkdit new_folder
-$ cd new_folder
-$ git clone git@github.com:HuangDeneil/Web-test.git
-
-!!!!!!!! The first step need to change arthority of all folder !!!!!!!!!!!!!!!!!!!
+<h1> cloning this repo : </h1>
+<p>$ mkdit new_folder</p>
+<p>$ cd new_folder</p>
+<p>$ git clone git@github.com:HuangDeneil/Web-test.git</p></br>
 
 
-$ chmod 777 *.css/ 
 
-$ chmod 777 javascript/
 
-$ chmod 777 order_list/
-
-$ chmod 777 fonts/
-
-$ chmod 777 fonts/*
-
-$ chmod 777 images/
-
-$ chmod 777 images/*
+<h1>  The first step need to change arthority of all folder </h1>
+<p>$ chmod 777 *.css/ </p>
+<p>$ chmod 777 javascript/</p>
+<p>$ chmod 777 order_list/</p>
+<p>$ chmod 777 fonts/</p>
+<p>$ chmod 777 fonts/*</p>
+<p>$ chmod 777 images/</p>
+<p>$ chmod 777 images/*</p>
 
 
 
