@@ -40,7 +40,8 @@ error_exit()
 # of the LINENO environment variable.  It contains the current
 # line number.
 
-echo "<p>Example of error with line number and message</p>"
+echo "<p>$LINENO Example of error with line number and message</p>"
+echo "<p>$LINENO: An error has occurred.</p>"
 error_exit "<p>$LINENO: An error has occurred.</p>"
 
 

@@ -39,7 +39,7 @@ tr:nth-child(even) {
 <div id="wrapper" class="container" >
 <?php 
 
-    $cmd ="update.sh";
+    $cmd ="git pull";
     $result=shell_exec ( $cmd );
     echo "$result"
 
