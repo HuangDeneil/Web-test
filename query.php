@@ -64,7 +64,6 @@ tr:nth-child(even) {
                         $data = "$str[0]\t$str[1]\t$str[2]\t\$$str[3]";
                         return $data;
                     }
-                
                 }
                 elseif($input2 == "price")
                 {
@@ -94,7 +93,6 @@ tr:nth-child(even) {
             $count=$count+1;
         }
         fclose($myfile);
-    
     }
 
     $order_id=$order_from="";
@@ -152,10 +150,7 @@ tr:nth-child(even) {
                 echo "<tr>";
                 echo "<th> $product_order_info  </th>";
                 $product_price = search_products($value,"price");
-                
-                
                 #var_dump($product_price);
-
             }
             elseif(preg_match ( "/count_num/", $key) )
             {
@@ -165,10 +160,7 @@ tr:nth-child(even) {
                 echo "<th> $product_order_count </th>";
                 echo "<th> $product_order_price </th>";
                 echo "</tr>";
-                
             }
-
-
         }
     }
 
@@ -185,8 +177,6 @@ tr:nth-child(even) {
                 #print "{$key} {$value}<br />";
                 $product_order_info = search_products(_get($key),"info");
                 $product_price=search_products($value,"price");
-                
-                
             }
             elseif(preg_match ( "/count_num/", $key) )
             {
@@ -196,8 +186,6 @@ tr:nth-child(even) {
             }
         }
         echo $total_price;
-        
-        
     }
     
     function total_count()
@@ -253,7 +241,6 @@ tr:nth-child(even) {
             {
                 if ( preg_match( "/order_product/", $key) )
                 {
-                    
                     if ( $discount == "yes30" OR $discount == "auto30" )
                     {
                         $product_price = search_products($value,"dicount30");
@@ -292,7 +279,6 @@ tr:nth-child(even) {
             echo total_price();
             #var_dump(total_order_num());
         }
-        
     }
     
     
@@ -329,8 +315,8 @@ tr:nth-child(even) {
 <table>
     <tr>
         <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>" ></td>
-	<td>訂貨方式: <?php echo "$order_from   "; ?> </td> 
-   	<td> <?php	    	
+	    <td>訂貨方式: <?php echo "$order_from   "; ?> </td> 
+   	    <td> <?php	    	
 			if( _get("discount") == "auto")
 			{
 				echo "折扣方式: 自訂"._get("discount_value")."%";
@@ -391,7 +377,7 @@ tr:nth-child(even) {
 				echo "$text";
             } 
             ?>" >
-             </td>
+        </td>
     </tr>
 </table>
 

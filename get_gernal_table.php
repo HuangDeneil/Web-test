@@ -156,7 +156,9 @@ tr:nth-child(even) {
                     echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:75%\">" . $str[13]. "</td>";
                     echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:75%\">" . $str[15]. "</td>";
                     echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:75%\">" . $str[19]. "</td>";
-                    echo "<td><a href='order_list/$id.html'  >view</a></td>";
+                    echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:75%\">
+                        <a href='order_list/$id-format1.html'>格式一</a></br>
+                        <a href='order_list/$id-format2.html'>格式二</a></td>";
                     echo "</tr>";
                     #echo "<option value=\"$product_id\">$text</option>";
                     ++$count;

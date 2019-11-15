@@ -175,31 +175,10 @@ tr:nth-child(even) {
             $count=$count+1;
         }
         fclose($myfile);
-    
     }
-
-
 ?>
 
 <?php 
-/*
-$myfile = fopen("./tmp.csv", "w") or die("Unable to open file!");
-
-
-$output="$order_id,$date,$order_from,$source_name,$source_phone,$source_email,$arrive_name,$arrive_phone,$arrive_email,$address,,,$orders,$total_count,$total_price,$discount,,,,$note,".$discount_value;
-#$output="test";
-            
-            訂單編號,訂單日期,訂購方式,
-            訂購人姓名,訂購人電話,訂購人信箱,
-            收件人姓名,收件人電話,收件人信箱,
-            寄送地址,取貨方式,到貨時間,產品編號,總數量,
-            商品總價小計,折扣後總計,物流費用,應收款,收款情形,備註,discount
-             
-            $txt = "Jane Doe\n";
-            fwrite($myfile, $txt);
-#fwrite($myfile, 'discount_value');	
-fclose($myfile);
-*/
 
 $cmd ="perl get_sql.pl tmp.csv";
 $result=shell_exec ( $cmd );
@@ -207,7 +186,7 @@ $result=shell_exec ( $cmd );
 
 $cmd ="perl gernal_table_process.pl tmp.csv product_list_from_mysql.csv";
 $result=shell_exec ( $cmd );
-shell_exec( "rm tmp.csv" );
+#shell_exec( "rm tmp.csv" );
 
 $result = $mysqli->query("DROP TABLE gernal_table");
 $result = $mysqli->query("CREATE TABLE `the_db`.`gernal_table` ( `訂單編號` TEXT NOT NULL , `訂單日期` TEXT NOT NULL , `訂購方式` TEXT NOT NULL , `訂購人姓名` TEXT NOT NULL , `訂購人電話` TEXT NOT NULL , `訂購人信箱` TEXT NOT NULL , `收件人姓名` TEXT NULL DEFAULT NULL , `收件人電話` TEXT NULL DEFAULT NULL , `收件人信箱` TEXT NULL DEFAULT NULL , `寄送地址` TEXT NULL DEFAULT NULL , `取貨方式` TEXT NULL DEFAULT NULL , `到貨時間` TEXT NULL DEFAULT NULL , `產品編號` TEXT NULL DEFAULT NULL , `總數量` INT NULL DEFAULT NULL , `商品總價小計` FLOAT NULL DEFAULT NULL ,`折扣後總計` FLOAT NULL DEFAULT NULL , `物流費用` FLOAT NULL DEFAULT NULL , `應收款` FLOAT NULL DEFAULT NULL , `收款情形` TEXT NULL DEFAULT NULL , `備註` TEXT NULL DEFAULT NULL , `discount` TEXT NULL DEFAULT NULL) ENGINE = InnoDB;");
@@ -244,11 +223,8 @@ $result = $mysqli->query("CREATE TABLE `the_db`.`gernal_table` ( `訂單編號` 
 		    
                     $result = $mysqli->query($sql);
                 }
-                
-
             }
         }
-        
     fclose($myfile);
     $mysqli->close();
 ?>
@@ -256,9 +232,10 @@ $result = $mysqli->query("CREATE TABLE `the_db`.`gernal_table` ( `訂單編號` 
 
 </body>
 </html>
-<a href=<?php echo "\"order_list/$order_id.html\"" ?> class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%" > 銷貨單 </a>
-<a href=<?php echo "\"get_gernal_table.php\"" ?> class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%" > 總表檢視 </a>
-<p><?php #echo "$order_id test $discount $discount_value " ?></p></br>
+    <a href=<?php echo "\"order_list/$order_id-format1.html\"" ?> class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%" > 銷貨單 格式一</a>
+    <a href=<?php echo "\"order_list/$order_id-format2.html\"" ?> class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%" > 銷貨單 格式二</a>
+    <a href=<?php echo "\"get_gernal_table.php\"" ?> class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%" > 總表檢視 </a>
+    <p><?php #echo "$order_id test $discount $discount_value " ?></p></br>
 </div>
 
 

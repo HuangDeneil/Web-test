@@ -37,13 +37,13 @@ Released   : 20130801
 			<div class="title">
 				<h2>檢視部分總表</h2>
 			</div>
-			<p>Input the product orders</p>
+			<p style="font-family:微軟正黑體;text-transform:initial;font-size:100%">檢視部分總表<br>註:本頁面能重新整理訂單總表去除重複資訊</p>
 			<a href="get_parial_gernal_table.php" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:100%" >Parial table</a> </div>
 		<div id="tbox3"> <span class="icon icon-list"></span>
 			<div class="title">
 				<h2>總表全覽</h2>
 			</div>
-			<p>Check gernal table.</p>
+			<p style="font-family:微軟正黑體;text-transform:initial;font-size:100%">檢視訂單總表及出貨單<br>註:本頁面能重新整理訂單總表去除重複資訊</p>
 			<a href="get_gernal_table.php" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:100%">Hole table</a> </div>
 	</div>
 </div>
