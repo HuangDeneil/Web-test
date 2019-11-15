@@ -38,7 +38,7 @@ tr:nth-child(even) {
 
 
 
-<div id="wrapper" class="container2" >
+<div id="wrapper" class="container" >
     <?php
         
         
@@ -117,18 +117,18 @@ tr:nth-child(even) {
         $myfile = fopen("gernal_table_reorganized.csv", "r") or die("Unable to open file!");
         echo "<table id=\"mt\" style=\"width:100%\" border=\"1\" cellpadding=\"5\">";
         echo "<thead>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">訂單編號</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">訂購方式</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">訂購人姓名</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">訂購人電話</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">收件人姓名</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">收件人電話</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">寄送地址</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">產品編號</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">總數量</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">商品總價小計</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">備註</td>";
-        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:130%\">銷貨單</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"80px\">訂單編號</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"50px\">訂購方式</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"60px\">訂購人</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"75px\">訂購人電話</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"60px\">收件人</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"75px\">收件人電話</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"210px\">寄送地址</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"130px\">產品編號</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"60px\">總數量</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"60px\">商品總價小計</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"300px\">備註</td>";
+        echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"60px\">銷貨單</td>";
         echo "</thead>";
         while( !feof($myfile) ) 
         {
