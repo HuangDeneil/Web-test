@@ -46,7 +46,7 @@ tr:nth-child(even) {
     <table>
         <tr>
             <td>輸入刪除訂單編號 : <input type="text" name="order_id" rows="2" cols="30"></td>
-            <td><p><input type='submit' value='送出訂單'> <input type='reset' value='清除'></p></td>
+            <td><p><input type='submit' value='送出'> <input type='reset' value='清除'></p></td>
         </tr>
     </table>
     <svg height="7" width="1200"><line x1="0" y1="0" x2="1300" y2="0" style="stroke:rgb(0,150,255);stroke-width:2" /></svg>

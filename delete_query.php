@@ -167,9 +167,11 @@ tr:nth-child(even) {
             if ($tmp_text == "") {}
             else
             {
-                $str=explode( ",",  $tmp_text ) ;
+                $str = explode( ",",  $tmp_text ) ;
                 $product_id = $str[1];
-                
+                $data = explode( ",",  $str[13] ) ;
+
+
                 if ($input2 == "info" )
                 {
                     
@@ -207,79 +209,7 @@ tr:nth-child(even) {
             }
         }
     }
-  /*
-    function total_count()
-    {
-        $product_value = 1;
-        $total_count=0;
-        $product_order=0;
-                
-        foreach ($_POST as $key => $value) 
-        {
-            if ( preg_match( "/count_num/", $key) )
-            {
-                #print "{$key} {$value}<br />";
-                $product_order = (floatval($value) );
-                $total_count = $total_count + $product_order;
-                $product_value = $product_value+1;
-            }
-        }
-        echo $product_order;
-    }
 
-        
-        $product_order = $total_count;
-        $total_price=0;
-        $product_order_price=0;
-
-        #######################################
-        # 呈現訂單
-        if ( $product_order > 6 )
-        {
-            foreach ($_POST as $key => $value) 
-            {
-                if ( preg_match( "/order_product/", $key) )
-                {
-                    if ( $discount == "yes30" OR $discount == "auto30" )
-                    {
-                        $product_price = search_products($value,"dicount30");
-                    }
-                    elseif ( $discount == "yes60" OR $discount == "auto60" )
-                    {
-                        $product_price = search_products($value,"dicount60");
-                    }
-                    else{
-                        $product_price = search_products($value,"price");
-                    }
-                }
-                elseif(preg_match ( "/count_num/", $key) )
-                {
-                    $product_order_price = ( floatval($value) * $product_price );
-                    $total_price = $total_price + $product_order_price;
-                }
-            }
-            if ( $discount == "no" )
-            {
-            echo total_price();
-            }
-            elseif ( $discount == "auto" )
-            {
-                $discount_value=floatval(_get("discount_value"))/100;
-                
-                echo $total_price*$discount_value;
-            }
-            else
-            {
-                echo $total_price;
-            }
-        }
-        else
-        {
-            echo total_price();
-            #var_dump(total_order_num());
-        }
-    
-    }
     /*
     $order_from="";
     $source_name=$source_phone=$source_email="";
@@ -376,6 +306,8 @@ fclose($myfile);
         <td>備註: <?php echo "$note" ; ?><input type="hidden" name="note"  value ="<?php echo $note; ?>" ></td>
     </tr>
 </table>
+<p><?php echo "$order_product" ; ?></p>
+
 <table  style="width:100%">
     <tr>
         <th>合計 : <?php echo total_price() ; ?><input type="hidden" name="total_price" value ="<?php echo total_price(); ?>" ></th>
