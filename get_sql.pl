@@ -96,7 +96,7 @@ foreach (@array)
 foreach $_ (sort { $b <=> $a} @array2)
 {
 	$id="D$_";
-	print OUT "$data{$id}\n";
+	print OUT "$data{$id}";
 	
 }
 

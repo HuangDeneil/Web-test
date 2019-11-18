@@ -34,7 +34,7 @@ while(<IN>)
 {
 	chomp;
 	@tmp=split "\t",$_;
-	$id = $tmp[1];
+	$id = $tmp[0];
 
     
     $data{$id}=$_;
