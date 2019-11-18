@@ -252,7 +252,7 @@ fclose($myfile);
 </div>
 
 <div id="wrapper" class="container">
-<form name="table_value" method="POST" action="">
+<form name="table_value" method="POST" action="deletion_upload.php">
 <table>
     <tr>
         <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>" ></td>
