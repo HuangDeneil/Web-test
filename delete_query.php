@@ -237,18 +237,18 @@ $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
         {
             echo "<p>$tmp_text</p>";
             $str=explode( ",",  $tmp_text ) ;
-            $product_id = $str[1];
+            $product_id = $str[0];
             
-            $order_from=$str[3];
-            $source_name=$str[4];
-            $source_phone=$str[5];
-            $source_email=$str[6];
-            $arrive_name=$str[7];
-            $arrive_phone=$str[8];
-            $arrive_email=$str[9];
-            $address=$str[10];
-            $note=$str[11];
-            $order_product=$str[13];
+            $order_from=$str[2];
+            $source_name=$str[3];
+            $source_phone=$str[4];
+            $source_email=$str[5];
+            $arrive_name=$str[6];
+            $arrive_phone=$str[7];
+            $arrive_email=$str[8];
+            $address=$str[9];
+            $note=$str[19];
+            $order_product=$str[12];
             
             if ($str[13] == "info" )
             {
