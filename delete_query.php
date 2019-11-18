@@ -306,24 +306,24 @@ fclose($myfile);
         <td></td>
     </tr>
 </table>
-
+<input type='submit' value='確認送出'> 
 </br>
 
-    <table  style="width:100%" style="width:100%" border="1" cellpadding="5">
-      <tr>
+<table  style="width:100%" style="width:100%" border="1" cellpadding="5">
+    <tr>
         <th>產品    &   產品編號    &   內容物   &   單價</th>
         <th>數目</th>
         <th>總價</th>
-      </tr>
-      <tr>
+    </tr>
+    <tr>
         <?php   print_order(); ?>
-      </tr>
-    </table>
+    </tr>
+</table>
 
-    </br></br>
-    <input type='submit' value='確認訂單並送出'> 
+</br>
+
     
-    </form>
+</form>
 </div>
 
 </body>
