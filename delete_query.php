@@ -188,7 +188,7 @@ tr:nth-child(even) {
                         $product_price = search_products($value,"price"); 
                         
                         #print "{$key} {$value}<br />";
-                        $product_order_count = $value;
+                        $product_order_count = $key;
                         $product_order_price= $product_order_count*$product_price;
                         echo "<th> $product_order_count </th>";
                         echo "<th> $product_order_price </th>";
@@ -319,8 +319,7 @@ fclose($myfile);
         <?php   print_order(); ?>
       </tr>
     </table>
-    <input type="hidden" name="orders" value ="<?php echo order(); ?>" >
-    <input type="hidden" name="total_count" value ="<?php echo total_count(); ?>" >
+
     </br></br>
     <input type='submit' value='確認訂單並送出'> 
     
