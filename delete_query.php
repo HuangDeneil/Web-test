@@ -53,7 +53,7 @@ tr:nth-child(even) {
 
     $cmd ="cat tmp.csv | grep $order_id > selected_order.csv";
     $result=shell_exec ( $cmd );
-    #echo "<p>$result</p>";
+    
 ####################################################
 # 
 # Get product list from SQL
@@ -156,13 +156,10 @@ tr:nth-child(even) {
     function print_order()
     {
         $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
-        $count=1;
         $data=$tmp=$tmp2=$key=$value="";
-        $price=0;
         
         while( !feof($myfile) ) 
         {
-            $price=0;
             $tmp_text = fgets($myfile);
             
             if ($tmp_text == "") {}
@@ -295,9 +292,6 @@ fclose($myfile);
         <td></td>
     </tr>
 </table>
-<input type='submit' value='確認送出'> 
-</br>
-
 <table  style="width:100%" style="width:100%" border="1" cellpadding="5">
     <thead>
         <th>產品    &   產品編號    &   內容物   &   單價</th><th>數目</th>
@@ -307,8 +301,9 @@ fclose($myfile);
     </tr>
 </table>
 
-</br>
 
+</br></br>
+<input type='submit' value='確認刪除'> 
     
 </form>
 </div>
