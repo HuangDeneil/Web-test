@@ -153,16 +153,13 @@ tr:nth-child(even) {
     # 
     # take order information
     # 
-    function print_order($input )
+    function print_order()
     {
         $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
         $count=1;
-        $data="";
-        $tmp="";
-        $tmp2="";
+        $data=$tmp=$tmp2=$key=$value="";
         $price=0;
-        $key="";
-        $value="";
+        
         while( !feof($myfile) ) 
         {
             $price=0;
@@ -181,16 +178,17 @@ tr:nth-child(even) {
                     else
                     {
                         $tmp = explode( "x",  $data[$i] ) ;
-                        $key
+                        $key = $tmp[0];
+                        $value = $tmp[1];
                         #print "{$key} {$value}<br />";
-                        $product_order_info = search_products(_get($key),"info");
+                        $product_order_info = search_products($key,"info");
                         
                         echo "<tr>";
                         echo "<th> $product_order_info  </th>";
                         $product_price = search_products($value,"price"); 
                         
                         #print "{$key} {$value}<br />";
-                        $product_order_count = floatval($value);
+                        $product_order_count = $value;
                         $product_order_price= $product_order_count*$product_price;
                         echo "<th> $product_order_count </th>";
                         echo "<th> $product_order_price </th>";
@@ -242,18 +240,13 @@ $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
             $arrive_phone=$str[7];
             $arrive_email=$str[8];
             $address=$str[9];
-            $note=$str[19];
-            $order_product=$str[12];
             
-            if ($str[13] == "info" )
-            {
-                    
-                if ($input == $product_id )
-                {
-                        $data = "$str[0]\t$str[1]\t$str[2]\t\$$str[3]";
-                        return $data;
-                }
-            }
+            $order_product=$str[12];
+            $total_price=$str[14];
+            $discount=$str[15];
+            
+            $note=$str[19];
+            
         }
         $count=$count+1;
     }
