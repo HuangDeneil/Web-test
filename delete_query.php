@@ -158,7 +158,11 @@ tr:nth-child(even) {
         $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
         $count=1;
         $data="";
+        $tmp="";
+        $tmp2="";
         $price=0;
+        $key="";
+        $value="";
         while( !feof($myfile) ) 
         {
             $price=0;
@@ -169,16 +173,28 @@ tr:nth-child(even) {
             {
                 $str = explode( ",",  $tmp_text ) ;
                 $product_id = $str[1];
-                $data = explode( ",",  $str[13] ) ;
+                $data = explode( " ",  $str[12] ) ;
 
-
-                if ($input2 == "info" )
-                {
-                    
-                    if ($input == $product_id )
+                for( $i=0; $i<$data ;$i++) 
+                { 
+                    if ( $data[$i] == "") {}
+                    else
                     {
-                        $data = "$str[0]\t$str[1]\t$str[2]\t\$$str[3]";
-                        return $data;
+                        $tmp = explode( "x",  $data[$i] ) ;
+                        $key
+                        #print "{$key} {$value}<br />";
+                        $product_order_info = search_products(_get($key),"info");
+                        
+                        echo "<tr>";
+                        echo "<th> $product_order_info  </th>";
+                        $product_price = search_products($value,"price"); 
+                        
+                        #print "{$key} {$value}<br />";
+                        $product_order_count = floatval($value);
+                        $product_order_price= $product_order_count*$product_price;
+                        echo "<th> $product_order_count </th>";
+                        echo "<th> $product_order_price </th>";
+                        echo "</tr>";
                     }
                 }
             }
@@ -186,28 +202,7 @@ tr:nth-child(even) {
         }
         fclose($myfile);
     
-        foreach ($_POST as $key => $value) 
-        { 
-            if ( preg_match ( "/order_product/", $key) )
-            {
-                #print "{$key} {$value}<br />";
-                $product_order_info = search_products(_get($key),"info");
-                
-                echo "<tr>";
-                echo "<th> $product_order_info  </th>";
-                $product_price = search_products($value,"price");
-                #var_dump($product_price);
-            }
-            elseif(preg_match ( "/count_num/", $key) )
-            {
-                #print "{$key} {$value}<br />";
-                $product_order_count = floatval($value);
-                $product_order_price= $product_order_count*$product_price;
-                echo "<th> $product_order_count </th>";
-                echo "<th> $product_order_price </th>";
-                echo "</tr>";
-            }
-        }
+        
     }
 
     /*
@@ -310,11 +305,11 @@ fclose($myfile);
 
 <table  style="width:100%">
     <tr>
-        <th>合計 : <?php echo total_price() ; ?><input type="hidden" name="total_price" value ="<?php echo total_price(); ?>" ></th>
+        <th>合計 : <?php $total_price ; ?><input type="hidden" name="total_price" value ="<?php $total_price; ?>" ></th>
         <td></td>
         <th>銷售稅 : --</th>
         <th></th>
-        <th>折扣後總計 : <?php discount("total"); ?><input type="hidden" name="discount" value ="<?php echo discount("total"); ?>" ></th>
+        <th>折扣後總計 : <?php $discount; ?><input type="hidden" name="discount" value ="<?php echo $discount; ?>" ></th>
         <td></td>
     </tr>
 </table>
