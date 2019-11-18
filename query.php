@@ -120,7 +120,7 @@ tr:nth-child(even) {
     $count_num=floatval(_get("count_num"));
     $order_product_price=( floatval($count_num) * search_products("order_product","price"));
     
-    if ( $order_id = "null" )
+    if ( $order_id == "null" )
     {
         $order_id="D".date("Ymdhis");
         $date=date("Ymd");
