@@ -108,8 +108,6 @@ tr:nth-child(even) {
 
 $order_id=_get("order_id");
 
-$cmd ="perl get_sql.pl tmp.csv";
-$result=shell_exec ( $cmd );
 
 $cmd ="perl get_order_id_and_deleted.pl tmp.csv $order_id";
 $result=shell_exec ( $cmd );

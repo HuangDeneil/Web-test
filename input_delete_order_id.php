@@ -36,9 +36,10 @@ tr:nth-child(even) {
   <a href="index.html" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%">Home</a>
   <h1 style="font-family:微軟正黑體;text-transform:initial;font-size:300%">訂單整理系統<span>Loacl web system</span><h1 >Order deletion</h1></h1>
 </div>
-
-
-
+<?php
+  $cmd ="perl get_sql.pl tmp.csv";
+  $result=shell_exec ( $cmd );
+?>
 <!--- Table region  --->
 <div id="wrapper" class="container">
     <form name="table_value" method="POST" action="delete_query.php">
