@@ -123,7 +123,7 @@ tr:nth-child(even) {
             else
             {
                 $str = explode( ",",  $tmp_text ) ;
-                $product_id = $str[1];
+
                 $data = explode( " ",  $str[12] ) ;
 
                 for( $i=0; $i<$data ;$i++) 
@@ -145,11 +145,33 @@ tr:nth-child(even) {
                     }
                 }
             }
-            $count=$count+1;
         }
         fclose($myfile);
-    
+    }
+
+    function print_order2($input)
+    {
+        $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
+        $data=$tmp=$tmp2=$key=$value="";
         
+        $data = explode( " ",  $input ) ;
+        foreach ($data as &$tmp) 
+        { 
+            if (  empty($tmp) == TRUE) {}
+            else
+            {
+                $tmp2 = explode( "x", $tmp ) ;
+                $key = $tmp2[0];
+                $value = $tmp2[1];
+                $product_order_info = search_products($key,"info");
+                $product_order_count = $value;
+                        
+                echo "<tr>";
+                echo "<th> $product_order_info  </th>";
+                echo "<th> $product_order_count </th>";
+                echo "</tr>";
+            }
+        }
     }
 
     /*
@@ -166,7 +188,7 @@ tr:nth-child(even) {
 #10 取貨方式	#11 到貨時間	#12 產品編號	#13 總數量	#14 商品總價小計	#15 折扣後總計	
 #16 物流費用	#17 應收款		#18 收款情形	#19 備註	#20 discount
 
-$myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
+    $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
     $data="";
     $price=0;
     while( !feof($myfile) ) 
@@ -253,7 +275,7 @@ fclose($myfile);
         <th>產品    &   產品編號    &   內容物   &   單價</th><th>數目</th>
     </thead>
     <tr>
-        <?php   print_order(); ?>
+        <?php   print_order2($order_product); ?>
     </tr>
 </table>
 
