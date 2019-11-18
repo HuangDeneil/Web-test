@@ -51,7 +51,7 @@ tr:nth-child(even) {
     $cmd ="perl get_sql.pl tmp.csv";
     $result=shell_exec ( $cmd );
 
-    $cmd ="cat tmp.csv |grep $order_id > selected_order.csv";
+    $cmd ='cat tmp.csv | grep $order_id > selected_order.csv';
     $result=shell_exec ( $cmd );
 ####################################################
 # 
