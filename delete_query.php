@@ -51,7 +51,7 @@ tr:nth-child(even) {
     $cmd ="perl get_sql.pl tmp.csv";
     $result=shell_exec ( $cmd );
 
-    $cmd ="perl get_order_id.pl tmp.csv $order_id";
+    $cmd ="cat tmp.csv |grep $order_id > selected_order.csv";
     $result=shell_exec ( $cmd );
 ####################################################
 # 
@@ -334,10 +334,13 @@ fclose($myfile);
 
 ?>
 
-
+<div id="logo" class="container">
+  <a href="index.html" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%">Home</a>
+  <h1 style="font-family:微軟正黑體;text-transform:initial;font-size:300%">訂單整理系統<span>Loacl web system</span><h1 >Order deletion</h1></h1>
+</div>
 
 <div id="wrapper" class="container">
-<form name="table_value" method="POST" action="upload.php">
+<form name="table_value" method="POST" action="">
 <table>
     <tr>
         <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>" ></td>
