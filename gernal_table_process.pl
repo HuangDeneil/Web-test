@@ -218,7 +218,7 @@ foreach $_ (sort { $b <=> $a} @array2)
 			{
 				$product_price=$price[1];
 				$price = int( $product_price*$order[1]);
-				print OUT_html "	<td align=\"center\" ><font size=\"1\">$product_price</font></th>\n";
+				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				$total_price = $total_price+$price;
 			}
@@ -226,7 +226,7 @@ foreach $_ (sort { $b <=> $a} @array2)
 			{
 				$product_price=$price[2];
 				$price = int( $product_price*$order[1]);
-				print OUT_html "	<td align=\"center\" ><font size=\"1\">$product_price</font></th>\n";
+				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				$total_price = $total_price+$price;
 			}
@@ -238,7 +238,7 @@ foreach $_ (sort { $b <=> $a} @array2)
 
 				$product_price=$price[0]*$i/100;
 				$price = int( $product_price*$order[1]);
-				print OUT_html "	<td align=\"center\" ><font size=\"1\">$product_price</font></th>\n";
+				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				$total_price = $total_price+$price;
 			}
@@ -246,7 +246,7 @@ foreach $_ (sort { $b <=> $a} @array2)
 			{
 				$product_price=$price[0];
 				$price = int( $product_price*$order[1]);
-				print OUT_html "	<td align=\"center\" ><font size=\"1\">$product_price</font></th>\n";
+				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				print OUT_html "	<td align=\"center\" ><font size=\"1\"></font></th>\n";
 				$total_price = $total_price + $price;
 			}
