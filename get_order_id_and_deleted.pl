@@ -33,7 +33,7 @@ open(IN,"$ARGV[0]")||die "$!";
 while(<IN>)
 {
 	chomp;
-	@tmp=split "\t",$_;
+	@tmp=split ",",$_;
 	$id = $tmp[0];
 
     
