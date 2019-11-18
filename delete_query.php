@@ -53,49 +53,9 @@ tr:nth-child(even) {
     $cmd ="cat tmp.csv | grep $order_id > selected_order.csv";
     $result=shell_exec ( $cmd );
     
-####################################################
-# 
-# Get product list from SQL
-# 
-    $servername = "localhost";
-    $username = "hudeneil";
-    $password = "78369906";
-    $dbname = "the_db";
-    $mysqli = new mysqli("$servername", "$username", "$password", "$dbname");
-        
-  /* check connection */
-    if (mysqli_connect_errno()) {
-        printf("Connect failed: %s\n", mysqli_connect_error());
-        exit();
-    }
-    
-    /* change character set to utf8 */
-    if (!$mysqli->set_charset("utf8")) {
-        printf("Error loading character set utf8: %s\n", $mysqli->error);
-    } 
-    $result = $mysqli -> query("SELECT * FROM product_list");
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        $myfile = fopen("product_list_from_mysql.csv", "w") or die("Unable to open file!");
-        $tmp_count=1;
-        while($row = $result->fetch_assoc()) 
-        {
-            $txt = "".$row["product"]."\t".$row["product_id"]."\t".$row["product_detail"]."\t".$row["price"]."\t".$row["discount_price30"]."\t".$row["discount_price60"]."\n";
-            fwrite($myfile, $txt);	
-            ++$tmp_count;
-        }
-        fclose($myfile);
-    } else {
-        echo "0 results";
-    }
-
-    $mysqli->close();
-    
     function search_products ( $input, $input2 )
     {
         $myfile = fopen("product_list_from_mysql.csv", "r") or die("Unable to open file!");
-        $count=1;
         $data="";
         $price=0;
         while( !feof($myfile) ) 
@@ -109,7 +69,6 @@ tr:nth-child(even) {
                 $product_id = $str[1];
                 
                 if ($input2 == "info" ){
-                    
                     if ($input == $product_id )
                     {
                         $data = "$str[0]\t$str[1]\t$str[2]\t\$$str[3]";
@@ -141,7 +100,6 @@ tr:nth-child(even) {
                     }
                 }
             }
-            $count=$count+1;
         }
         fclose($myfile);
     }
@@ -161,7 +119,7 @@ tr:nth-child(even) {
         {
             $tmp_text = fgets($myfile);
             
-            if ($tmp_text == "") {}
+            if ( empty($tmp_text) == TRUE ) {}
             else
             {
                 $str = explode( ",",  $tmp_text ) ;
@@ -170,7 +128,7 @@ tr:nth-child(even) {
 
                 for( $i=0; $i<$data ;$i++) 
                 { 
-                    if ( $data[$i] == "") {}
+                    if (  empty($data[$i]) == TRUE) {}
                     else
                     {
                         $tmp = explode( "x",  $data[$i] ) ;
@@ -216,11 +174,11 @@ $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
         $price=0;
         $tmp_text = fgets($myfile);
             
-        if ($tmp_text == "") {}
+        if ( empty($tmp_text) == TRUE ) {}
         else
         {
-            echo "<p>$tmp_text</p>";
-            $str=explode( ",",  $tmp_text ) ;
+            #echo "<p>$tmp_text</p>";
+            $str = explode( ",",  $tmp_text ) ;
             $product_id = $str[0];
             
             $order_from=$str[2];
@@ -239,7 +197,6 @@ $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
             $note=$str[19];
             
         }
-        $count=$count+1;
     }
 fclose($myfile);
 

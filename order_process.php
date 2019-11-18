@@ -129,20 +129,7 @@ tr:nth-child(even) {
       fclose($myfile);
   
   }
-  
-  function _get($str)
-  {
-      $val = !empty($_POST["$str"]) ? $_POST[$str] : null;
-      return $val;
-  }
 
-  function test_input($data) 
-  {
-    $data = trim($data);
-    $data = stripslashes($data);
-    $data = htmlspecialchars($data);
-    return $data;
-  }
   
 ?>
 <!---
@@ -151,7 +138,6 @@ tr:nth-child(even) {
   show_products() ;
   echo "</select>";
 ?>
-<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
 --->
 <div id="logo" class="container">
   <a href="index.html" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%">Back</a>

@@ -39,6 +39,46 @@ tr:nth-child(even) {
 <?php
   $cmd ="perl get_sql.pl tmp.csv";
   $result=shell_exec ( $cmd );
+
+####################################################
+# 
+# Get product list from SQL
+# 
+$servername = "localhost";
+$username = "hudeneil";
+$password = "78369906";
+$dbname = "the_db";
+$mysqli = new mysqli("$servername", "$username", "$password", "$dbname");
+    
+/* check connection */
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+
+/* change character set to utf8 */
+if (!$mysqli->set_charset("utf8")) {
+    printf("Error loading character set utf8: %s\n", $mysqli->error);
+} 
+$result = $mysqli -> query("SELECT * FROM product_list");
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    $myfile = fopen("product_list_from_mysql.csv", "w") or die("Unable to open file!");
+    $tmp_count=1;
+    while($row = $result->fetch_assoc()) 
+    {
+        $txt = "".$row["product"]."\t".$row["product_id"]."\t".$row["product_detail"]."\t".$row["price"]."\t".$row["discount_price30"]."\t".$row["discount_price60"]."\n";
+        fwrite($myfile, $txt);	
+        ++$tmp_count;
+    }
+    fclose($myfile);
+} else {
+    echo "0 results";
+}
+
+$mysqli->close();
+
 ?>
 <!--- Table region  --->
 <div id="wrapper" class="container">
