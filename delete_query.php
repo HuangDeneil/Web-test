@@ -53,6 +53,8 @@ tr:nth-child(even) {
 
     $cmd ='cat tmp.csv | grep $order_id > selected_order.csv';
     $result=shell_exec ( $cmd );
+    $result=shell_exec('whoami');
+    echo "<p>$result</p>";
 ####################################################
 # 
 # Get product list from SQL
