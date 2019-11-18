@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>訂單輸入</title>
+<title>訂單刪除</title>
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
 <link href="default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
@@ -53,7 +53,7 @@ tr:nth-child(even) {
 
     $cmd ="cat tmp.csv | grep $order_id > selected_order.csv";
     $result=shell_exec ( $cmd );
-    echo "<p>$result</p>";
+    #echo "<p>$result</p>";
 ####################################################
 # 
 # Get product list from SQL
@@ -153,52 +153,35 @@ tr:nth-child(even) {
     # 
     # take order information
     # 
-    function print_order()
+    function print_order($input)
     {
-        $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
         $count=1;
         $data=$tmp=$tmp2=$key=$value="";
         $price=0;
         
-        while( !feof($myfile) ) 
+        $price=0;
+           
+        if ($input == "") {}
+        else
         {
-            $price=0;
-            $tmp_text = fgets($myfile);
-            
-            if ($tmp_text == "") {}
-            else
-            {
-                $str = explode( ",",  $tmp_text ) ;
-                $product_id = $str[1];
-                $data = explode( " ",  $str[12] ) ;
-
-                for( $i=0; $i<$data ;$i++) 
-                { 
-                    if ( $data[$i] == "") {}
-                    else
-                    {
-                        $tmp = explode( "x",  $data[$i] ) ;
-                        $key = $tmp[0];
-                        $value = $tmp[1];
-                        #print "{$key} {$value}<br />";
-                        $product_order_info = search_products($key,"info");
-                        
-                        echo "<tr>";
-                        echo "<th> $product_order_info  </th>";
-                        $product_price = search_products($value,"price"); 
-                        
-                        #print "{$key} {$value}<br />";
-                        $product_order_count = $key;
-                        $product_order_price= $product_order_count*$product_price;
-                        echo "<th> $product_order_count </th>";
-                        echo "<th> $product_order_price </th>";
-                        echo "</tr>";
-                    }
+            $data = explode( ",",  $input ) ;
+            for( $i=0; $i<$data ;$i++) 
+            { 
+                if ( $data[$i] == "") {}
+                else
+                {
+                    $tmp = explode( "x",  $data[$i] ) ;
+                    $key = $tmp[0];
+                    $value = $tmp[1];
+                    $product_order_info = search_products($key,"info");
+                    
+                    echo "<tr>";
+                    echo "<th> $product_order_info  </th>";
+                    echo "<th> $value </th>";
+                    echo "</tr>";
                 }
             }
-            $count=$count+1;
         }
-        fclose($myfile);
     
         
     }
@@ -260,68 +243,62 @@ fclose($myfile);
 </div>
 
 <div id="wrapper" class="container">
-<form name="table_value" method="POST" action="">
+<form name="table_value" method="POST" action="deletion_upload.php">
 <table>
     <tr>
-        <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>" ></td>
-	    <td>訂貨方式: <?php echo "$order_from   "; ?> </td> 
-   	    <td> 
-            <input id="order_form" type="hidden" name="order_from" value ="<?php echo $order_from; ?>" >
-            <input id="discount_value" type="hidden" name="discount_value" value ="<?php  ?>" >
-        </td>
+        <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>"></td>
+	    <td>訂貨方式: <?php echo "$order_from"; ?> </td> 
+
     </tr>
 </table>
 
-<input type="hidden" name="date" value ="<?php echo $date; ?>" >
-
 <table>
     <tr>
-        <td>定貨人: <?php echo "$source_name" ; ?><input id="source_name" type="hidden" name="source_name" value ="<?php echo $source_name; ?>" ></td>
-        <td>電話: <?php echo "$source_phone" ; ?><input id="source_phone" type="hidden" name="source_phone" value ="<?php echo $source_phone; ?>" ></td>
-        <td>信箱: <?php echo "$source_email" ; ?><input type="hidden" name="source_email" value ="<?php echo $source_email; ?>" ></td>
+        <td>定貨人: <?php echo "$source_name" ; ?></td>
+        <td>電話: <?php echo "$source_phone" ; ?></td>
+        <td>信箱: <?php echo "$source_email" ; ?></td>
     </tr>
     <tr>
-        <td>收貨人: <?php echo "$arrive_name" ; ?><input id="arrive_name" type="hidden" name="arrive_name" value ="<?php echo $arrive_name; ?>" ></td>
-        <td>電話: <?php echo "$arrive_phone" ; ?><input id="arrive_phone" type="hidden" name="arrive_phone" value ="<?php echo $arrive_phone; ?>" ></td>
-        <td>信箱: <?php echo "$arrive_email" ; ?><input type="hidden" name="arrive_email" value ="<?php echo $arrive_email; ?>" ></td>
+        <td>收貨人: <?php echo "$arrive_name" ; ?></td>
+        <td>電話: <?php echo "$arrive_phone" ; ?></td>
+        <td>信箱: <?php echo "$arrive_email" ; ?></td>
       </tr>
 </table>
 <table>
     <tr>
-        <td>地址: <?php echo "$address" ; ?><input id="address" type="hidden" name="address" value ="<?php echo $address; ?>" ></td>
+        <td>地址: <?php echo "$address" ; ?></td>
     </tr>
     <tr>
-        <td>備註: <?php echo "$note" ; ?><input type="hidden" name="note"  value ="<?php echo $note; ?>" ></td>
+        <td>備註: <?php echo "$note" ; ?></td>
     </tr>
 </table>
-<p><?php echo "$order_product" ; ?></p>
+<p><?php #echo "$order_product" ; ?></p>
 
 <table  style="width:100%">
     <tr>
-        <th>合計 : <?php $total_price ; ?><input type="hidden" name="total_price" value ="<?php $total_price; ?>" ></th>
+        <th>合計 : <?php $total_price ; ?></th>
         <td></td>
         <th>銷售稅 : --</th>
         <th></th>
-        <th>折扣後總計 : <?php $discount; ?><input type="hidden" name="discount" value ="<?php echo $discount; ?>" ></th>
+        <th>折扣後總計 : <?php $discount; ?></th>
         <td></td>
     </tr>
 </table>
-<input type='submit' value='確認送出'> 
+
 </br>
 
 <table  style="width:100%" style="width:100%" border="1" cellpadding="5">
     <tr>
         <th>產品    &   產品編號    &   內容物   &   單價</th>
         <th>數目</th>
-        <th>總價</th>
     </tr>
     <tr>
-        <?php   print_order(); ?>
+        <?php  print_order(); ?>
     </tr>
 </table>
 
-</br>
-
+</br></br>
+<input type='submit' value='確認刪除'> 
     
 </form>
 </div>
