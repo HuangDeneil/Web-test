@@ -293,7 +293,7 @@ fclose($myfile);
         <th>數目</th>
     </tr>
     <tr>
-        <?php  print_order(); ?>
+        <?php  print_order($order_product); ?>
     </tr>
 </table>
 
