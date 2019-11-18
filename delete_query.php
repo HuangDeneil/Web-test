@@ -156,7 +156,7 @@ tr:nth-child(even) {
     function print_order($input)
     {
         $count=1;
-        $data=$tmp=$tmp2=$key=$value="";
+        $data=$tmp=$key=$count="";
         $price=0;
         
         $price=0;
@@ -172,12 +172,12 @@ tr:nth-child(even) {
                 {
                     $tmp = explode( "x",  $data[$i] ) ;
                     $key = $tmp[0];
-                    $value = $tmp[1];
+                    $count = $tmp[1];
                     $product_order_info = search_products($key,"info");
                     
                     echo "<tr>";
-                    echo "<th> $product_order_info  </th>";
-                    echo "<th> $value </th>";
+                    echo "<th> $product_order_info</th>";
+                    echo "<th> $count</th>";
                     echo "</tr>";
                 }
             }
