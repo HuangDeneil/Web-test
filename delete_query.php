@@ -269,7 +269,7 @@ fclose($myfile);
     <tr>
         <td>收貨人: <?php echo "$arrive_name" ; ?></td>
         <td>電話: <?php echo "$arrive_phone" ; ?></td>
-        <td>信箱: <?php echo "$arrive_email" ; ?><</td>
+        <td>信箱: <?php echo "$arrive_email" ; ?></td>
       </tr>
 </table>
 <table>
