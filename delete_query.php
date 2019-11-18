@@ -153,35 +153,47 @@ tr:nth-child(even) {
     # 
     # take order information
     # 
-    function print_order($input)
+    function print_order()
     {
+        $myfile = fopen("selected_order.csv", "r") or die("Unable to open file!");
         $count=1;
-        $data=$tmp=$key=$count="";
+        $data=$tmp=$tmp2=$key=$value="";
         $price=0;
         
-        $price=0;
-           
-        if ($input == "") {}
-        else
+        while( !feof($myfile) ) 
         {
-            $data = explode( ",",  $input ) ;
-            for( $i=0; $i<$data ;$i++) 
-            { 
-                if ( $data[$i] == "") {}
-                else
-                {
-                    $tmp = explode( "x",  $data[$i] ) ;
-                    $key = $tmp[0];
-                    $count = $tmp[1];
-                    $product_order_info = search_products($key,"info");
-                    
-                    echo "<tr>";
-                    echo "<th> $product_order_info</th>";
-                    echo "<th> $count</th>";
-                    echo "</tr>";
+            $price=0;
+            $tmp_text = fgets($myfile);
+            
+            if ($tmp_text == "") {}
+            else
+            {
+                $str = explode( ",",  $tmp_text ) ;
+                $product_id = $str[1];
+                $data = explode( " ",  $str[12] ) ;
+
+                for( $i=0; $i<$data ;$i++) 
+                { 
+                    if ( $data[$i] == "") {}
+                    else
+                    {
+                        $tmp = explode( "x",  $data[$i] ) ;
+                        $key = $tmp[0];
+                        $value = $tmp[1];
+                        $product_order_info = search_products($key,"info");
+                        $product_order_count = $value;
+                        $product_order_price= $product_order_count*$product_price;
+                        
+                        echo "<tr>";
+                        echo "<th> $product_order_info  </th>";
+                        echo "<th> $product_order_count </th>";
+                        echo "</tr>";
+                    }
                 }
             }
+            $count=$count+1;
         }
+        fclose($myfile);
     
         
     }
@@ -243,12 +255,11 @@ fclose($myfile);
 </div>
 
 <div id="wrapper" class="container">
-<form name="table_value" method="POST" action="deletion_upload.php">
+<form name="table_value" method="POST" action="">
 <table>
     <tr>
-        <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>"></td>
-	    <td>訂貨方式: <?php echo "$order_from"; ?> </td> 
-
+        <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>" ></td>
+	    <td>訂貨方式: <?php echo "$order_from   "; ?> </td> 
     </tr>
 </table>
 
@@ -261,7 +272,7 @@ fclose($myfile);
     <tr>
         <td>收貨人: <?php echo "$arrive_name" ; ?></td>
         <td>電話: <?php echo "$arrive_phone" ; ?></td>
-        <td>信箱: <?php echo "$arrive_email" ; ?></td>
+        <td>信箱: <?php echo "$arrive_email" ; ?><</td>
       </tr>
 </table>
 <table>
@@ -284,21 +295,20 @@ fclose($myfile);
         <td></td>
     </tr>
 </table>
-
+<input type='submit' value='確認送出'> 
 </br>
 
 <table  style="width:100%" style="width:100%" border="1" cellpadding="5">
+    <thead>
+        <th>產品    &   產品編號    &   內容物   &   單價</th><th>數目</th>
+    </thead>
     <tr>
-        <th>產品    &   產品編號    &   內容物   &   單價</th>
-        <th>數目</th>
-    </tr>
-    <tr>
-        <?php  print_order($order_product); ?>
+        <?php   print_order(); ?>
     </tr>
 </table>
 
-</br></br>
-<input type='submit' value='確認刪除'> 
+</br>
+
     
 </form>
 </div>
