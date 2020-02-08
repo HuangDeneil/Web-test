@@ -40,11 +40,12 @@ tr:nth-child(even) {
 
 <div id="wrapper" class="container">
     <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
+	$servername = "localhost";
+        $username = "hudeneil";
+        $password = "78369906";
         $dbname = "the_db";
-        $mysqli = new mysqli("$servername", "$username", "", "$dbname");
+        $mysqli = new mysqli("$servername", "$username", "$password", "$dbname");
+
             
         /* check connection */
         if (mysqli_connect_errno()) {
