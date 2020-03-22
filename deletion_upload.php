@@ -107,6 +107,7 @@ tr:nth-child(even) {
     }
 
 $order_id=_get("order_id");
+echo "$order_id 
 
 $cmd ="perl get_sql.pl tmp.csv";
 $result=shell_exec ( $cmd );
