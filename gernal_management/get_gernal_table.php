@@ -4,8 +4,8 @@
 <head>
 <title>訂單總覽</title>
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../fonts.css" rel="stylesheet" type="text/css" media="all" />
 <style>
 table {
   font-family: arial, sans-serif;
@@ -46,16 +46,25 @@ tr:nth-child(even) {
 
 
 <div id="wrapper" class="container" >
-    <?php
-        
-        
-        
-        $servername = "localhost";
-        $username = "hudeneil";
-        $password = "78369906";
-        $dbname = "the_db";
-        $mysqli = new mysqli("$servername", "$username", "$password", "$dbname");
-            
+<?php
+$cmd ="rm -rf ../order_list/*.html";
+$result=shell_exec ( $cmd );
+
+$cmd ="perl ../perl/get_sql.pl ../temp/tmp.csv";
+echo $result = shell_exec ( $cmd );
+echo "</br>";
+
+/*
+#########################################################################################################
+#################### 讀取 產品資訊 from 暫存資料夾中的 "product_list_from_mysql.csv"  ######################
+#########################################################################################################
+*/
+     
+$servername = "localhost";
+$username = "hudeneil";
+$password = "78369906";
+$dbname = "the_db";
+$mysqli = new mysqli("$servername", "$username", "$password", "$dbname");
         /* check connection */
         if (mysqli_connect_errno()) {
             printf("Connect failed: %s\n", mysqli_connect_error());
@@ -69,17 +78,20 @@ tr:nth-child(even) {
         
         $result = $mysqli -> query("SELECT * FROM product_list");
 
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
             // output data of each row
-            $myfile = fopen("product_list_from_mysql.csv", "w") or die("Unable to open file!");
+            $myfile = fopen("../temp/product_list_from_mysql.csv", "w") or die("Unable to open file!");
             $tmp_count=1;
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch_assoc()) 
+            {
                 $txt = "".$row["product"]."\t".$row["product_id"]."\t".$row["product_detail"]."\t".$row["price"]."\t".$row["discount_price30"]."\t".$row["discount_price60"]."\n";
                 fwrite($myfile, $txt);	
                 ++$tmp_count;
             }
             fclose($myfile);
-        } else {
+        } else 
+        {
             echo "0 results";
         }
       
@@ -89,9 +101,10 @@ tr:nth-child(even) {
         
         $result = $mysqli->query("SELECT * FROM gernal_table");
         #$result = $mysqli->query("SELECT * FROM product_list");
-        if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) 
+        {
             // output data of each row
-            $myfile = fopen("gernal_list_from_mysql.csv", "w") or die("Unable to open file!");
+            $myfile = fopen("../temp/gernal_list_from_mysql.csv", "w") or die("Unable to open file!");
             /*
             (訂單編號,訂單日期,訂購方式,
             訂購人姓名,訂購人電話,訂購人信箱,
@@ -100,7 +113,8 @@ tr:nth-child(even) {
             ,物流費用,應收款,收款情形,備註,discount) 
             */
             
-            while($row = $result->fetch_assoc()) {
+            while($row = $result->fetch_assoc()) 
+            {
                 $txt = ("".$row["訂單編號"].",".$row["訂單日期"].",".$row["訂購方式"].",".$row["訂購人姓名"].",".$row["訂購人電話"].",".$row["訂購人信箱"].",".$row["收件人姓名"].",".$row["收件人電話"].",".$row["收件人信箱"].",".$row["寄送地址"].",".$row["取貨方式"].",".$row["到貨時間"].",".$row["產品編號"].",".$row["總數量"].",".$row["商品總價小計"].",".$row["折扣後總計"].",".$row["物流費用"].",".$row["應收款"].",".$row["收款情形"].",".$row["備註"].",".$row["discount"]."\n");
                 fwrite($myfile, $txt);
             }
@@ -115,13 +129,15 @@ tr:nth-child(even) {
         $result = $mysqli->query("CREATE TABLE `the_db`.`gernal_table` ( `訂單編號` TEXT NOT NULL , `訂單日期` TEXT NOT NULL , `訂購方式` TEXT NOT NULL , `訂購人姓名` TEXT NOT NULL , `訂購人電話` TEXT NOT NULL , `訂購人信箱` TEXT NOT NULL , `收件人姓名` TEXT NULL DEFAULT NULL , `收件人電話` TEXT NULL DEFAULT NULL , `收件人信箱` TEXT NULL DEFAULT NULL , `寄送地址` TEXT NULL DEFAULT NULL , `取貨方式` TEXT NULL DEFAULT NULL , `到貨時間` TEXT NULL DEFAULT NULL , `產品編號` TEXT NULL DEFAULT NULL , `總數量` INT NULL DEFAULT NULL , `商品總價小計` FLOAT NULL DEFAULT NULL ,`折扣後總計` FLOAT NULL DEFAULT NULL , `物流費用` FLOAT NULL DEFAULT NULL , `應收款` FLOAT NULL DEFAULT NULL , `收款情形` TEXT NULL DEFAULT NULL , `備註` TEXT NULL DEFAULT NULL , `discount` TEXT NULL DEFAULT NULL) ENGINE = InnoDB;");
  
         
-        $cmd ="perl gernal_table_process.pl gernal_list_from_mysql.csv product_list_from_mysql.csv";
-        $result=shell_exec ( $cmd );
+
+        $cmd ="perl ../perl/gernal_table_process.pl ../temp/tmp.csv ../temp/product_list_from_mysql.csv ../temp/gernal_table_reorganized.csv";
+        echo $result = shell_exec ( $cmd );
+        echo "</br>";
         
         echo "<p>$result</p>";
       
         $count=1;
-        $myfile = fopen("gernal_table_reorganized.csv", "r") or die("Unable to open file!");
+        $myfile = fopen("../temp/tmp.csv", "r") or die("Unable to open file!");
         echo "<table id=\"mt\" style=\"width:100%\" border=\"1\" cellpadding=\"5\">";
         echo "<thead>";
         echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:120%\" WIDTH=\"80px\">訂單編號</td>";
@@ -145,7 +161,7 @@ tr:nth-child(even) {
             {
                 $str=explode( ",",  $tmp_text ) ;
                 $id = $str[0];
-                if ( empty($str[0]) == TRUE OR empty($str[2]) == TRUE  ) {}
+                if ( empty($str[0]) == 1 OR empty($str[2]) == 1  ) {}
                 #elseif ( empty($str[3]) == TRUE OR empty($str[4]) == TRUE OR empty($str[6]) == TRUE ) {}
                 #elseif ( empty($str[7]) == TRUE OR empty($str[8]) == TRUE OR empty($str[9]) == TRUE  ) {}
                 #elseif ( empty($str[12]) == TRUE OR empty($str[13]) == TRUE OR empty($str[19]) == TRUE ) {}

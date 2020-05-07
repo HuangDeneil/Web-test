@@ -2,19 +2,15 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>訂單輸入</title>
+<title>訂單輸入 order input</title>
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../fonts.css" rel="stylesheet" type="text/css" media="all" />
 
-<script src="javascript/jquery-1.8.3.js"></script>
-
-
+<script src="../javascript/jquery-1.8.3.js"></script>
 
 <script>
   var tag = 1;
-  
 
   $(function(){
     $("#add").click(function(){
@@ -29,14 +25,7 @@
     });
   })
 </script>
-<!---
-<?php echo show_products(); ?> <option value='1111'>text</option>
-<?php
-  echo "<select name='order_product'>";
-  show_products();
-  echo "</select>";
-?>
---->
+
 
 <style>
 table {
@@ -57,13 +46,19 @@ tr:nth-child(even) {
 }
 .error {color: #FF0000;}
 </style  style="width:100%">
+
 </head>
-<body>
+
 
 
 
 <?php
-    
+   
+   /*
+   ##############################################################
+   #################### 從MySQL中讀取產品資訊 #####################
+   ##############################################################
+   */
   $servername = "localhost";
   $username = "hudeneil";
   $password = "78369906";
@@ -77,22 +72,33 @@ tr:nth-child(even) {
   }
     
   /* change character set to utf8 */
-  if (!$mysqli->set_charset("utf8")) {
+  if (!$mysqli->set_charset("utf8")) 
+  {
       printf("Error loading character set utf8: %s\n", $mysqli->error);
   } 
   $result = $mysqli -> query("SELECT * FROM product_list");
 
-  if ($result->num_rows > 0) {
+
+   /*
+   #####################################################################################################
+   #################### 將取產品資訊寫入暫存資料夾中的 "product_list_from_mysql.csv" ######################
+   #####################################################################################################
+   */
+  if ($result->num_rows > 0) 
+  {
       // output data of each row
       $myfile = fopen("../temp/product_list_from_mysql.csv", "w") or die("Unable to open file!");
       $tmp_count=1;
-      while($row = $result->fetch_assoc()) {
+      while($row = $result->fetch_assoc()) 
+      {
           $txt = "".$row["product"]."\t".$row["product_id"]."\t".$row["product_detail"]."\t".$row["price"]."\t".$row["discount_price30"]."\t".$row["discount_price60"]."\n";
           fwrite($myfile, $txt);	
           ++$tmp_count;
       }
       fclose($myfile);
-  } else {
+  } 
+  else 
+  {
       echo "0 results";
   }
 
@@ -103,16 +109,19 @@ tr:nth-child(even) {
     return $val;
   }
 
+   /*
+   #########################################################################################################
+   #################### 讀取 產品資訊 from 暫存資料夾中的 "product_list_from_mysql.csv"  ######################
+   #########################################################################################################
+   */
   function show_products()
   {
-    
       $show = "<option value=\"\">請選擇商品</option>";
       $count=1;
       $myfile = fopen("../temp/product_list_from_mysql.csv", "r") or die("Unable to open file!");
       
       while( !feof($myfile) ) 
       {
-          
           $tmp_text = fgets($myfile);
           if ($tmp_text == "") {}
           else
@@ -127,18 +136,19 @@ tr:nth-child(even) {
       }
       echo $show;
       fclose($myfile);
-  
   }
-
-  
 ?>
-<!---
+
+
+<!--- 
 <?php
   echo "<select name='order_product'>";
   show_products() ;
   echo "</select>";
 ?>
 --->
+
+
 <!--- 
 #######################################################################
 ###################*####*#####***#####*****######*****################
@@ -149,13 +159,22 @@ tr:nth-child(even) {
 #######################################################################
 --->
 
+<body>
 <div id="logo" class="container">
   <a href="../index.html" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%">Back</a>
   <h1 style="font-family:微軟正黑體;text-transform:initial;font-size:300%">訂單整理系統<span>Loacl web system</span><h1 >Order process</h1></h1>
 </div>
 
 
+<?php
+   /*
+   ########################################################
+   #################### 表格資訊填寫  ######################
+   ########################################################
+   */
+  ?>
 
+  
 <!--- Table region  --->
 <div id="wrapper" class="container">
   <form name="table_value" method="POST" action="query.php">
@@ -222,10 +241,12 @@ tr:nth-child(even) {
         <th>數目</th>
       </thead>
       <tbody>
-          <th><?php  
-            echo "<select name=\"order_product\">";
-            show_products();
-            echo "</select>"; ?>
+          <th>
+            <?php  
+              echo "<select name=\"order_product\">";
+              show_products();
+              echo "</select>"; 
+            ?>
             <span class="error">* </span>
           </th>
           <th><input type="text" name="count_num" ><span class="error">* </span></th>

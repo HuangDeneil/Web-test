@@ -4,8 +4,8 @@
 <head>
 <title>訂單確認</title>
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../fonts.css" rel="stylesheet" type="text/css" media="all" />
 <style>
 table {
   font-family: arial, sans-serif;
@@ -37,6 +37,7 @@ tr:nth-child(even) {
 ###################*####*####*****######***##*###****#################
 #######################################################################
 --->
+
 <div id="logo" class="container">
   <a href="order_process.php" class="button" style="font-family:微軟正黑體;text-transform:initial;font-size:120%">Cancel & Back</a>
   <h1 style="font-family:微軟正黑體;text-transform:initial;font-size:300%"><span>訂單確認</span></h1>
@@ -48,7 +49,12 @@ tr:nth-child(even) {
         $val = !empty($_POST["$str"]) ? $_POST[$str] : null;
         return $val;
     }
-    
+
+    /*
+   #########################################################################################################
+   #################### 讀取 產品資訊 from 暫存資料夾中的 "product_list_from_mysql.csv"  ######################
+   #########################################################################################################
+   */
     function search_products ( $input, $input2 )
     {
         $myfile = fopen("../temp/product_list_from_mysql.csv", "r") or die("Unable to open file!");
@@ -128,7 +134,7 @@ tr:nth-child(even) {
     $count_num=floatval(_get("count_num"));
     $order_product_price=( floatval($count_num) * search_products("order_product","price"));
     
-    if ( $order_id == "null" )
+    if ( empty($order_id)  == 1 )
     {
         $order_id="D".date("Ymdhis");
         $date=date("Ymd");
@@ -139,7 +145,11 @@ tr:nth-child(even) {
     }
     
     
-
+   /*
+   ##############################################################
+   #################### 顯示訂單詳細內容資訊 ######################
+   ##############################################################
+   */
     function print_order()
     {
         $product_order_info="";
@@ -172,6 +182,11 @@ tr:nth-child(even) {
         }
     }
 
+    /*
+   #######################################################
+   #################### 計算訂單金額 ######################
+   #######################################################
+   */
     function total_price()
     {
         $product_value=1;
@@ -241,8 +256,7 @@ tr:nth-child(even) {
         $total_price=0;
         $product_order_price=0;
 
-        #######################################
-        # 呈現訂單
+        
         if ( $product_order > 6 )
         {
             foreach ($_POST as $key => $value) 
@@ -318,8 +332,17 @@ tr:nth-child(even) {
 
 ?>
 
+
+
 <div id="wrapper" class="container">
 <form name="table_value" method="POST" action="upload.php">
+<?php
+/*
+###################################################
+#################### 訂單呈現 ######################
+###################################################
+*/
+?>
 <table>
     <tr>
         <td>貨號: <?php echo "$order_id"; ?><input type="hidden" name="order_id" value ="<?php echo $order_id; ?>" ></td>

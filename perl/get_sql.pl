@@ -7,6 +7,8 @@ use Encode;
 use Encode qw/encode decode from_to/;
 
 #####################################
+#  
+# 此程式工作為下載 "訂單總表" 並且完成排列去重複
 # 
 # Usage : perl get_sql.pl $ARGV[0]
 # 
@@ -64,8 +66,8 @@ my $id;
 open (OUT,">$ARGV[0]") || die "$!";
 while ( my @row = $sth->fetchrow_array( ) )  {
 	$data="";
-	$id=$row[0];
-	for($i=0;$i<@row;$i++)
+	$id = $row[0];
+	for ($i=0; $i<@row; $i++)
 	{
 		
 		if ($i < $#row)
@@ -79,27 +81,20 @@ while ( my @row = $sth->fetchrow_array( ) )  {
 			$data="$data$row[$i]";
 		}
 	}
-	$data{$id}=$data;	
+	$data{$id} = $data;	
 #	print "$data\n";
 }
 
-my @array= keys %data;
+my @array = sort keys %data;
 #print "@array";
+#print "@array\n";
 
-my @array2;
-foreach (@array)
+foreach $id (sort keys %data)
 {
-	s/D//;
-	push @array2,$_;
+	print OUT "$data{$id}\n";
+	#print  "$id\n";
 }
-
-foreach $_ (sort { $b <=> $a} @array2)
-{
-	$id="D$_";
-	print OUT "$data{$id}";
-	
-}
-
+#system 'echo " \"`pwd`\""';
 
 close OUT;
 exit;

@@ -5,12 +5,13 @@ use strict;
 # 
 # This perl script sorting geranal table
 # 
-# usage : perl gernal_table_process.pl $ARGV[0] $ARGV[1] 
+# usage : perl gernal_table_process.pl $ARGV[0] $ARGV[1] $ARGV[2] 
 # 
 # $ARGV[0] >>> gernal_list_from_mysql.csv
 # $ARGV[1] >>> product_list_from_mysql.csv
-# 
-# perl gernal_table_process.pl gernal_list_from_mysql.csv product_list_from_mysql.csv
+# $ARGV[2] >>> gernal_table_reorganized.csv
+#
+# perl gernal_table_process.pl gernal_list_from_mysql.csv product_list_from_mysql.csv gernal_table_reorganized.csv
 # 
 # 
 # gernal_list_from_mysql.csv:
@@ -29,7 +30,7 @@ use strict;
 # 
 # 
 # 
-
+#system 'echo "\"`pwd`\""';
 my %product_info;
 my %product_name;
 my %product_price;
@@ -85,15 +86,9 @@ while(<IN>)
 
 close IN;
 
-open (OUT,">gernal_table_reorganized.csv")||die "$!";
+open (OUT,">$ARGV[2]")||die "$!";
 
-my @array=sort { $b <=> $a} keys %gernal_list_info;
-my @array2;
-foreach (@array)
-{
-	s/D//;
-	push @array2,$_;
-}
+my @array=sort keys %gernal_list_info;
 
 #0 訂單編號		#1 訂單日期		#2 訂購方式		
 #3 訂購人姓名	#4 訂購人電話	#5 訂購人信箱
@@ -103,8 +98,8 @@ foreach (@array)
 
 
 system '
-	if [ ! -d "order_list" ] ;then
-		mkdir order_list
+	if [ ! -d "../order_list" ] ;then
+		echo "cannot find ouput folder \"order_list\""
 	fi
 ';
 ##################################
@@ -112,14 +107,14 @@ system '
 ## format 1 order  
 ## 
 
-foreach $_ (sort { $b <=> $a} @array2)
+foreach $_ (sort @array)
 {
 	if ($_ eq ""){}
 	else
 	{
-		$id="D$_";
+		$id=$_;
 		print OUT "$gernal_list_info{$id}\n";
-		open(OUT_html,">./order_list/$id\-format1.html")||die "$!";
+		open(OUT_html,">../order_list/$id\-format1.html")||die "$!";
 		
 		@tmp = split ",",$gernal_list_info{$id};
 		
@@ -434,7 +429,7 @@ foreach $_ (sort { $b <=> $a} @array2)
 ## 
 ## format 2 order
 ## 
-
+my @array2;
 foreach $_ (sort { $b <=> $a} @array2)
 {
 	if ($_ eq ""){}
@@ -442,7 +437,7 @@ foreach $_ (sort { $b <=> $a} @array2)
 	{
 		$id="D$_";
 		print OUT "$gernal_list_info{$id}\n";
-		open(OUT_html,">./order_list/$id\-format2.html")||die "$!";
+		open(OUT_html,">../order_list/$id\-format2.html")||die "$!";
 		
 		@tmp = split ",",$gernal_list_info{$id};
 		

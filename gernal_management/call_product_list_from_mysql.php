@@ -4,8 +4,8 @@
 <head>
 <title>php mysql testing</title>
 <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Open+Sans+Condensed:300,700" rel="stylesheet" />
-<link href="default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="fonts.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../default.css" rel="stylesheet" type="text/css" media="all" />
+<link href="../fonts.css" rel="stylesheet" type="text/css" media="all" />
 <style>
 table {
   font-family: arial, sans-serif;
@@ -68,7 +68,6 @@ tr:nth-child(even) {
 
         if ($result->num_rows > 0) {
             // output data of each row
-            #$myfile = fopen("product_list_from_mysql.csv", "w") or die("Unable to open file!");
 
             echo "<table id=\"mt\" style=\"width:100%\" border=\"1\" cellpadding=\"5\">";
             echo "<thead>";
@@ -89,8 +88,7 @@ tr:nth-child(even) {
                 echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:100%\"> \$" . $row["discount_price30"]. "</td>";
                 echo "<td style=\"font-family:微軟正黑體;text-transform:initial;font-size:100%\"> \$" . $row["discount_price60"]. "</td>";
                 echo "</tr>";
-                #$txt = "".$row["product"].",".$row["product_id"].",".$row["product_detail"]."\n";
-                #fwrite($myfile, $txt);
+
             }
             
             echo "</table>";
