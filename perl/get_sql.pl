@@ -91,7 +91,11 @@ my @array = sort keys %data;
 
 foreach $id (sort keys %data)
 {
-	print OUT "$data{$id}\n";
+	if( $data{$id} eq ""){}
+	elsif($id=~/\w/)
+	{
+		print OUT "$data{$id}";
+	}
 	#print  "$id\n";
 }
 #system 'echo " \"`pwd`\""';

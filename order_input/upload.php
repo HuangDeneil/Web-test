@@ -215,46 +215,48 @@ echo "</br>";
 
 sleep(0);
 
-#$result = $mysqli->query("DROP TABLE gernal_table");
-#$result = $mysqli->query("CREATE TABLE `the_db`.`gernal_table` ( `訂單編號` TEXT NOT NULL , `訂單日期` TEXT NOT NULL , `訂購方式` TEXT NOT NULL , `訂購人姓名` TEXT NOT NULL , `訂購人電話` TEXT NOT NULL , `訂購人信箱` TEXT NOT NULL , `收件人姓名` TEXT NULL DEFAULT NULL , `收件人電話` TEXT NULL DEFAULT NULL , `收件人信箱` TEXT NULL DEFAULT NULL , `寄送地址` TEXT NULL DEFAULT NULL , `取貨方式` TEXT NULL DEFAULT NULL , `到貨時間` TEXT NULL DEFAULT NULL , `產品編號` TEXT NULL DEFAULT NULL , `總數量` INT NULL DEFAULT NULL , `商品總價小計` FLOAT NULL DEFAULT NULL ,`折扣後總計` FLOAT NULL DEFAULT NULL , `物流費用` FLOAT NULL DEFAULT NULL , `應收款` FLOAT NULL DEFAULT NULL , `收款情形` TEXT NULL DEFAULT NULL , `備註` TEXT NULL DEFAULT NULL , `discount` TEXT NULL DEFAULT NULL) ENGINE = InnoDB;");
+$result = $mysqli->query("DROP TABLE gernal_table");
+$result = $mysqli->query("CREATE TABLE `the_db`.`gernal_table` ( `訂單編號` TEXT NOT NULL , `訂單日期` TEXT NOT NULL , `訂購方式` TEXT NOT NULL , `訂購人姓名` TEXT NOT NULL , `訂購人電話` TEXT NOT NULL , `訂購人信箱` TEXT NOT NULL , `收件人姓名` TEXT NULL DEFAULT NULL , `收件人電話` TEXT NULL DEFAULT NULL , `收件人信箱` TEXT NULL DEFAULT NULL , `寄送地址` TEXT NULL DEFAULT NULL , `取貨方式` TEXT NULL DEFAULT NULL , `到貨時間` TEXT NULL DEFAULT NULL , `產品編號` TEXT NULL DEFAULT NULL , `總數量` INT NULL DEFAULT NULL , `商品總價小計` FLOAT NULL DEFAULT NULL ,`折扣後總計` FLOAT NULL DEFAULT NULL , `物流費用` FLOAT NULL DEFAULT NULL , `應收款` FLOAT NULL DEFAULT NULL , `收款情形` TEXT NULL DEFAULT NULL , `備註` TEXT NULL DEFAULT NULL , `discount` TEXT NULL DEFAULT NULL) ENGINE = InnoDB;");
         
-        
-    echo "<p>$result</p>";
+echo "<p>$result</p>";
 
 
-    $count=1;
-    $myfile = fopen("../temp/tmp.csv", "r") or die("Unable to open file!");
+$count=0;
+$myfile = fopen("../temp/tmp.csv", "r") or die("Unable to open file!");
 
-     $discount_value="";
-        while( !feof($myfile) ) 
+$discount_value="";
+while( !feof($myfile) ) 
+    {
+        $tmp_text = fgets($myfile);
+        if ( empty($tmp_text) == 1) {}
+        else
         {
-            $tmp_text = fgets($myfile);
-            if ( empty($tmp_text) == 1) {}
+            $str = explode( ",",  $tmp_text ) ;
+            $id = $str[0];
+            $count++;
+            if ( empty( $str[0]) == 1 ){echo "</br>--$str[0]--test</br>";}
+            elseif ( preg_match( "\w+?", $str[0])  ) { }
             else
             {
-                $str = explode( ",",  $tmp_text ) ;
-                $id = $str[0];
+                $sql = "INSERT IGNORE INTO `gernal_table`
+                (訂單編號,訂單日期,訂購方式,
+                訂購人姓名,訂購人電話,訂購人信箱,
+                收件人姓名,收件人電話,收件人信箱,
+                寄送地址,取貨方式,到貨時間,產品編號,總數量,
+                商品總價小計,折扣後總計,物流費用,應收款,收款情形,備註,discount)
+                VALUES ('$str[0]', '$str[1]', '$str[2]',
+                '$str[3]', '$str[4]', '$str[5]',
+                '$str[6]', '$str[7]', '$str[8]',
+                '$str[9]','$str[10]', '$str[11]', '$str[12]', '$str[13]',
+                '$str[14]', '$str[15]', '$str[16]', '$str[17]', '$str[18]', '$str[19]', '$str[20]')";
+                echo "$sql</br>";
+                $result = $mysqli->query($sql);
                 
-                if ( empty( $str[0]) == 1 ){echo "</br>test</br>";}
-                else
-                {
-                    $sql = "INSERT IGNORE INTO `gernal_table`
-                    (訂單編號,訂單日期,訂購方式,
-                    訂購人姓名,訂購人電話,訂購人信箱,
-                    收件人姓名,收件人電話,收件人信箱,
-                    寄送地址,取貨方式,到貨時間,產品編號,總數量,
-                    商品總價小計,折扣後總計,物流費用,應收款,收款情形,備註,discount)
-                    VALUES ('$str[0]', '$str[1]', '$str[2]',
-                    '$str[3]', '$str[4]', '$str[5]',
-                    '$str[6]', '$str[7]', '$str[8]',
-                    '$str[9]','$str[10]', '$str[11]', '$str[12]', '$str[13]',
-                    '$str[14]', '$str[15]', '$str[16]', '$str[17]', '$str[18]', '$str[19]', '$str[20]')";
-                    echo "$sql</br>";
-                    #$result = $mysqli->query($sql);
-                }
+                echo "</br>$count</br>'$tmp_text'</br>";
             }
         }
-    fclose($myfile);
+    }
+fclose($myfile);
 /*
 $result = $mysqli->query("
 CREATE TABLE `the_db`.`gernal_table` ( 
